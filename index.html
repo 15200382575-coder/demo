@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>High Voltage Eco Transition</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a; /* 深色背景 */
+            font-family: 'Segoe UI', sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            transition: background-color 1.5s ease;
+            cursor: pointer;
+        }
+
+        /* 激活后的背景变为深绿色 */
+        body.active {
+            background: radial-gradient(circle, #1a422a 0%, #000000 100%);
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* SF6 分子样式 */
+        .sf6-group {
+            position: absolute;
+            transition: all 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .sf6-ball {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(145deg, #777, #444);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 10px 10px 20px #111;
+            font-size: 40px;
+            font-weight: bold;
+            color: #ddd;
+            z-index: 2;
+        }
+
+        .sf6-label {
+            margin-top: 20px;
+            font-size: 24px;
+            color: #aaa;
+        }
+
+        .gwp-warning {
+            color: #ff4d4d;
+            font-size: 18px;
+            margin-top: 5px;
+        }
+
+        /* 环保气体样式 */
+        .eco-group {
+            position: absolute;
+            opacity: 0;
+            transform: scale(0.1);
+            transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+            filter: blur(10px);
+        }
+
+        .eco-ball {
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(145deg, #2ecc71, #27ae60);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 50px rgba(46, 204, 113, 0.6);
+            font-size: 35px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .eco-label {
+            margin-top: 25px;
+            font-size: 28px;
+            color: #2ecc71;
+            font-weight: bold;
+        }
+
+        .gwp-safe {
+            color: #2ecc71;
+            font-size: 18px;
+            margin-top: 5px;
+        }
+
+        /* 激活状态：SF6 缩小消失 */
+        body.active .sf6-group {
+            opacity: 0;
+            transform: scale(0) rotate(180deg);
+        }
+
+        /* 激活状态：Eco 放大出现 */
+        body.active .eco-group {
+            opacity: 1;
+            transform: scale(1);
+            filter: blur(0);
+        }
+
+        /* 提示文字 */
+        .hint {
+            position: absolute;
+            bottom: 30px;
+            font-size: 14px;
+            color: #666;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
+    </style>
+</head>
+<body onclick="toggleTransition()">
+
+    <div class="container">
+        <!-- 旧的 SF6 -->
+        <div class="sf6-group">
+            <div class="sf6-ball">SF<sub>6</sub></div>
+            <div class="sf6-label">完美绝缘气体</div>
+            <div class="gwp-warning">GWP: 23,500 (极高)</div>
+        </div>
+
+        <!-- 新的 Eco -->
+        <div class="eco-group">
+            <div class="eco-ball">C<sub>4</sub>F<sub>7</sub>N</div>
+            <div class="eco-label">绿色契约</div>
+            <div class="gwp-safe">GWP: < 1 (环保)</div>
+        </div>
+        
+        <div class="hint">点击屏幕切换未来</div>
+    </div>
+
+    <script>
+        function toggleTransition() {
+            document.body.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
